@@ -1,0 +1,157 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block content %}
+    <!-- Header -->
+    <script type="text/javascript" src="static/assets/js/jquery-2.1.4.min.js"></script>
+
+<style type="text/css">
+  .hide{
+    display: none;
+
+    
+  }
+  .messages{
+    z-index: 3;
+    
+  }
+</style>
+
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" 
+         style="min-height: 600px; background-image: url(/static/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-7 col-md-8">
+            <h1 class="display-2 text-white">Hello {{ request.user.username }}</h1>
+            <p class="text-white mt-0 mb-5">New Account Payment</p>
+            <a href="#!" class="btn btn-info">New Payee</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mt--7">
+
+      <div class="rowh">
+        
+        <div class="col-xl-18 order-xl-8">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Account Type</h3>
+                </div>
+                
+              </div>
+            </div>
+            <div class="card-body">
+               
+              
+                <form id="form" method="post" >
+           {% csrf_token %}
+                <h6 class="heading-small text-muted mb-4">Payee information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Display Name</label>
+                        <input type="text" id="name" name="name" class="form-control form-control-alternative" placeholder="payee's first name or initial">
+                      </div>
+                    </div>
+                     <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Account Number</label>
+                        <input type="text" id="input-username" name="account_number" class="form-control form-control-alternative" placeholder="payee's account number" 
+                               >
+
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Sort Code</label>
+                        <input type="text" id="input-first-name" name="sort_code" placeholder="payee's account sort code" class="form-control form-control-alternative" >
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Reference</label>
+                        <input type="text" id="input-last-name" name='reference' placeholder="enter a description" class="form-control form-control-alternative" >
+                      </div>
+                    </div>
+                     <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Amount</label>
+                        <input type="number" id="last_transaction" name='last_transaction' placeholder="enter amount to transfer" class="form-control form-control-alternative" >
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                  <div id='myModal' class="modal" tabindex="-1" role="dialog" ><br><br><br>
+
+        <div  style="text-align: center;" class="modal-body">
+          <strong><p id="messages_content" style="color: black;"></p></strong>
+
+          <button  type="submit" class="btn">
+                    Yes Send
+                  </button>
+              <button id='dis' type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel
+                  </button>
+        
+        
+      </div>
+      
+    </div>
+                <hr class="my-4"/>
+                 {{ error }}
+
+                <!-- Address -->
+               
+                <div id="olamide" style="text-align: center;">
+                  <button class="btn" type="button" data-toggle="modal" data-target="#myModal">
+                    Next
+                  </button>
+
+                  
+                </div>
+                <!-- Description -->
+              
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+  $('#olamide').click(function(){
+    
+    var value = $('input[type=number][name=last_transaction]').val()
+    var name = $('input[type=text][name=name]').val()
+    console.log(value)
+    
+    $('#messages_content').html('Send $'+value+' to '+name);
+
+    
+    
+  });
+
+  
+</script>
+
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}
